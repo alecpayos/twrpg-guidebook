@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  #accordion-items a,
+  #accordion-heroes a,
+  #accordion-bosses a {
+    @apply
+      ps-12
+      py-2
+      w-full
+      text-left
+      hover:bg-gray-200
+  }
+
+  div[data-open="true"] > h2 > button > span {
+    @apply
+      hidden
+  }
+
+  div[data-open="true"] > h2 > button {
+    @apply
+      text-xl
+      font-semibold
+      p-0
+      ps-4
+      focus:outline-none
+  }
+
+  div[data-open="true"] > h2 {
+    @apply
+      mt-3
+  }
+}
