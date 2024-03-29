@@ -1,33 +1,46 @@
 import * as itemsData from 'info/items.json'
 
-const possibleStatsList = (items: any[]) => {
-  const done = [
-    'hpregen', 'mpregen', 'hp', 'mp',
-    'affinitydarkpercent','affinityflamepercent','affinityearthpercent','affinitylightpercent','affinityiwpercent','affinitywlpercent',
-    'mainstat','allstat','str','agi','int',
-  ];
-
-  return items.reduce((list, item) => {
-    item.stats && Object.keys(item.stats).forEach(stat => {
-      (!list.includes(stat) && !done.includes(stat)) && list.push(stat);
-    });
-
-    return list;
-  }, []);
-}
+export const itemTabs = [
+  { id: 'Weapon' },
+  { id: 'Head' },
+  { id: 'Armor' },
+  { id: 'Accessory' },
+  { id: 'Wings' },
+  { id: 'Mat' },
+  { id: 'Misc' },
+  { id: 'Pickaxe' },
+  { id: 'Token' },
+  { id: 'Icon' },
+  { id: 'Food' },
+  { id: 'Coin' },
+  { id: 'Special' },
+];
 
 export const getItemAttrMatches = (attrGroup: string, item: any) => {
-  const matchers = attrGroup == 'constitution'
+  const matchers = attrGroup == 'armor'
+    ? ['armor']
+    : attrGroup == 'constitution'
     ? ['hpregen','mpregen','hp','mp']
     : attrGroup == 'statsgain'
     ? ['mainstat','allstat','str','agi','int']
     : attrGroup == 'affinities'
     ? ['affinitydarkpercent','affinityflamepercent','affinityearthpercent','affinitylightpercent','affinityiwpercent','affinitywlpercent',]
+    : attrGroup == 'dexterities'
+    ? ['attackspeedpercent','movespeed','critchancepercent','critmultiplier']
+    : attrGroup == 'targeted'
+    ? ['periodicdamagepercent','skilldamagepercent','procdamagepercent','aadamagepercent']
+    : attrGroup == 'defense'
+    ? ['drpercent', 'dtpercent','mdpercent']
+    : attrGroup == 'survival'
+    ? ['dodgechancepercent', 'healingpercent', 'healreceivedpercent',]
     : [];
-    
+
   const keys = item.stats ? Object.keys(item.stats) : [];
   const regex = new RegExp(matchers.join('|'), 'ig');
-  return keys.join('').match(regex)?.length || 0;
+  
+  return attrGroup == 'damage'
+    ? keys.find(key => key == 'damage')?.length || 0
+    : keys.join('').match(regex)?.length || 0;
 }
 
 export const getItemMatches = (attrGroup: string, paginatedFilteredItems: any[]) => {
@@ -55,11 +68,9 @@ export const getFilteredItems = (
 
   const paginatedFilteredItems = filteredItems.slice(from, to);
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage) || 1;
-  const statsList = possibleStatsList(filteredItems);
 
   return {
     items: paginatedFilteredItems,
     totalPages,
-    statsList
   };
 }

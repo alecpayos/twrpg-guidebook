@@ -19,6 +19,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "components/*": ["./src/app/components/*"],
+      "api/*": ["./src/app/api/*"],
       "info/*": ["./info/*"],
       "icons": ["./icons/index.ts"]
     }

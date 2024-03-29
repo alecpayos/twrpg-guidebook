@@ -1,7 +1,7 @@
 'use client'
 
 import { Tabs, Tab } from "@nextui-org/react";
-import Items from "./components/items";
+import Items from "components/items";
 import { useState } from "react";
 
 export default function Page() {
@@ -21,17 +21,9 @@ export default function Page() {
       </Tabs>
 
       <Tabs aria-label="Options" className="flex">
-        <Tab key="items" title="Items">
-          <Items />
-        </Tab>
-
-        <Tab key="character" title="Character">
-          
-        </Tab>
-
-        <Tab key="bosses" title="Bosses">
-          
-        </Tab>
+        <Tab key="items" title="Items"><Items /></Tab>
+        <Tab key="character" title="Character"></Tab>
+        <Tab key="bosses" title="Bosses"></Tab>
       </Tabs>
     </main>
   );
