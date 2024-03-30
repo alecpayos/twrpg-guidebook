@@ -1,4 +1,4 @@
-[
+const heroSkills = [
     {
         "id": "A0FM",
         "name": "Emergency Rations",
@@ -6037,4 +6037,6 @@
             "Lands as critical strike"
         ]
     }
-]
+];
+
+export default heroSkills

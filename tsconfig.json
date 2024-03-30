@@ -22,7 +22,9 @@
       "components/*": ["./src/app/components/*"],
       "api/*": ["./src/app/api/*"],
       "info/*": ["./info/*"],
-      "icons": ["./icons/index.ts"]
+      "icons": ["./icons/index.ts"],
+      "heroIcons": ["./icons/heroes/index.ts"],
+      "heroSkillsIcons": ["./icons/heroes/skills.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

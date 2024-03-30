@@ -77,9 +77,9 @@ export const DexterityColumnHeader = ({ items }: { items: any[] }) => {
       <p className="mx-1">/</p>
       <p>MS</p>
       <p className="mx-1">/</p>
-      <p>Crit %</p>
+      <p>CRIT %</p>
       <p className="mx-1">/</p>
-      <p>Crit (x)</p>
+      <p>CRIT (x)</p>
     </div>
   );
 }
@@ -88,14 +88,14 @@ export const BossTargetedColumnHeader = ({ items }: { items: any[] }) => {
   return (
     <div className={`flex flex-col justify-center ${hide(6, items)}`}>
       <div className="flex justify-center">
-        <p>Prd Dmg %</p>
+        <p>PRD DMg %</p>
         <p className="mx-1">/</p>
-        <p>Skill Dmg %</p>
+        <p>SKILL DMG %</p>
       </div>
       <div className="flex justify-center">
-        <p>Proc Dmg %</p>
+        <p>PROC DMG %</p>
         <p className="mx-1">/</p>
-        <p>AA Dmg %</p>
+        <p>AA DMG %</p>
       </div>
     </div>
   );
@@ -104,11 +104,11 @@ export const BossTargetedColumnHeader = ({ items }: { items: any[] }) => {
 export const DefenseColumnHeader = ({ items }: { items: any[] }) => {
   return (
     <div className={`flex justify-center ${hide(7, items)}`}>
-      <p>Dmg Rdc</p>
+      <p>DMG RDC</p>
       <p className="mx-1">/</p>
-      <p>Dmg Tkn</p>
+      <p>DMG TKN</p>
       <p className="mx-1">/</p>
-      <p>Magic Def</p>
+      <p>MAGIC DEF</p>
     </div>
   );
 }
@@ -116,11 +116,11 @@ export const DefenseColumnHeader = ({ items }: { items: any[] }) => {
 export const SurvivalColumnHeader = ({ items }: { items: any[] }) => {
   return (
     <div className={`flex justify-center ${hide(8, items)}`}>
-      <p>Dodge %</p>
+      <p>DODGE %</p>
       <p className="mx-1">/</p>
-      <p>Healing %</p>
+      <p>HEALING %</p>
       <p className="mx-1">/</p>
-      <p>Heal Rec %</p>
+      <p>HEAL REC %</p>
     </div>
   );
 }

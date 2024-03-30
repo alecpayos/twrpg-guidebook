@@ -1,4 +1,4 @@
-[
+const heroes = [
     {
         "id": "H015",
         "name": "Lyrio Farn",
@@ -870,4 +870,6 @@
             "No Specs!"
         ]
     }
-]
+];
+
+export default heroes;

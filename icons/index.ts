@@ -6,7 +6,8 @@ import * as materials from './items/materials/index';
 import * as miscItems from './items/miscellaneous/index';
 import * as weapons from './items/weapons/index';
 import * as wings from './items/wings/index';
-import sampleImage from './hero-card-complete.jpeg';
+import heroIcons from './heroes/index';
+import placeholder from './placeholder.jpg';
 
 export {
   misc,
@@ -17,5 +18,6 @@ export {
   miscItems,
   weapons,
   wings,
-  sampleImage
+  heroIcons,
+  placeholder
 }

@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Table,
   TableHeader,
@@ -41,7 +39,7 @@ import { getFilteredItems, itemTabs } from "api/items";
 import KeyLogger from "components/keylogger";
 import Searchbar from "components/searchbar";
 
-export default function Items() {
+export default function Items({ rowHoverBg }: { rowHoverBg: string }) {
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState('Weapon');
   const [searchValue, setSearchValue] = useState('');
@@ -68,8 +66,10 @@ export default function Items() {
         </section>
       </section>
 
-      <section className="flex gap-4">
-        <Table aria-label="Items table">
+      <section>
+        <Table aria-label="Items table" classNames={{
+          tr: rowHoverBg
+        }}>
           <TableHeader>
             <TableColumn>NAME</TableColumn>
             <TableColumn><DamageColumnHeader items={items} /></TableColumn>
@@ -84,22 +84,20 @@ export default function Items() {
           </TableHeader>
           
           <TableBody emptyContent={"No rows to display."} items={items}>
-            {item => {
-              return (
-                <TableRow key={item.name} className="hover:bg-zinc-800">
-                  <TableCell>{item.name}</TableCell>
-                  <TableCell><DamageRows item={item} /></TableCell>
-                  <TableCell><ArmorRows item={item} /></TableCell>
-                  <TableCell><ConstitutionRows item={item} /></TableCell>
-                  <TableCell><StatsGainRows item={item} /></TableCell>
-                  <TableCell><AffinityRows item={item} /></TableCell>
-                  <TableCell><DexterityRows item={item} /></TableCell>
-                  <TableCell><BossTargetedRows item={item} /></TableCell>
-                  <TableCell><DefenseRows item={item} /></TableCell>
-                  <TableCell><SurvivalRows item={item} /></TableCell>
-                </TableRow>
-              );
-            }}
+            {item => (
+              <TableRow key={item.id}>
+                <TableCell>{item.name}</TableCell>
+                <TableCell><DamageRows item={item} /></TableCell>
+                <TableCell><ArmorRows item={item} /></TableCell>
+                <TableCell><ConstitutionRows item={item} /></TableCell>
+                <TableCell><StatsGainRows item={item} /></TableCell>
+                <TableCell><AffinityRows item={item} /></TableCell>
+                <TableCell><DexterityRows item={item} /></TableCell>
+                <TableCell><BossTargetedRows item={item} /></TableCell>
+                <TableCell><DefenseRows item={item} /></TableCell>
+                <TableCell><SurvivalRows item={item} /></TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </section>

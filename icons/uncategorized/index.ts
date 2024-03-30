@@ -129,7 +129,6 @@ import ravenHelm from "./Raven Helm.jpg";
 import ravenHood from "./Raven Hood.jpg";
 import ravenRing from "./Raven Ring.jpg";
 import ravenRobe from "./Raven Robe.jpg";
-import recall from "./Recall.jpg";
 import remainsOfAbyss from "./Remains of Abyss.jpg";
 import remnantsOfDarkness from "./Remnants of Darkness.jpg";
 import rifleOfDeadlyPoison from "./Rifle of Deadly Poison.jpg";
@@ -320,7 +319,6 @@ export {
     ravenHood,
     ravenRing,
     ravenRobe,
-    recall,
     remainsOfAbyss,
     remnantsOfDarkness,
     rifleOfDeadlyPoison,

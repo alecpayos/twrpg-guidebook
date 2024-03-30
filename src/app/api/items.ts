@@ -1,4 +1,4 @@
-import * as itemsData from 'info/items.json'
+import items from 'info/items';
 
 export const itemTabs = [
   { id: 'Weapon' },
@@ -51,6 +51,10 @@ export const getItemMatches = (attrGroup: string, paginatedFilteredItems: any[])
   }, 0);
 }
 
+export const getSpecializedItems = () => {
+  return items.filter(item => item.stats?.hasOwnProperty('spec'));
+}
+
 export const getFilteredItems = (
   page: number,
   category: string,
@@ -59,7 +63,6 @@ export const getFilteredItems = (
 ) => {
   const from = (page - 1) * itemsPerPage;
   const to = page * itemsPerPage;
-  const items = Object.values(itemsData);
   const regex = new RegExp(searchValue, 'ig');
 
   const filteredItems = items.filter(item => {

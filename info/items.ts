@@ -1,4 +1,4 @@
-[
+const items = [
   {
     "id": "I0LZ",
     "name": "Mystical Materials",
@@ -25833,4 +25833,6 @@
       "General Recipe: Wing + Wing Frame"
     ]
   }
-]
+];
+
+export default items;
