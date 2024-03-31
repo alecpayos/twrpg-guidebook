@@ -1,4 +1,6 @@
-const items = [
+import { Item } from "types";
+
+const items: Item[] = [
   {
     "id": "I0LZ",
     "name": "Mystical Materials",

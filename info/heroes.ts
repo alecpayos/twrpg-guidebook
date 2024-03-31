@@ -1,4 +1,6 @@
-const heroes = [
+import { Hero } from "types";
+
+const heroes: Hero[] = [
     {
         "id": "H015",
         "name": "Lyrio Farn",

@@ -1,4 +1,6 @@
-[
+import { Build } from "types";
+
+const heroBuilds: Build[] = [
     {
         "for": "Berserker",
         "type": "Early Endgame",
@@ -2682,4 +2684,6 @@
             ]
         }
     }
-]
+];
+
+export default heroBuilds

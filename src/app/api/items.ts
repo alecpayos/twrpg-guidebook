@@ -52,7 +52,14 @@ export const getItemMatches = (attrGroup: string, paginatedFilteredItems: any[])
 }
 
 export const getSpecializedItems = () => {
-  return items.filter(item => item.stats?.hasOwnProperty('spec'));
+  return items.filter(item => item.stats && Object.prototype.hasOwnProperty.call(item.stats, 'spec'));
+}
+
+export const getItemColors = (itemList: string[]) => {
+  return itemList.map((item: string) => {
+    const itemMatch: any = items.find(match => match.name.toLowerCase() == item.toLowerCase());
+    return { [item]: itemMatch?.color || '' };
+  })
 }
 
 export const getFilteredItems = (

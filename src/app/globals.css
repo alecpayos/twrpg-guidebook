@@ -25,6 +25,10 @@ body {
     text-wrap: balance;
   }
 
+  .alt-color {
+    color: #C19ADE;
+  }
+
   #accordion-items a,
   #accordion-heroes a,
   #accordion-bosses a {

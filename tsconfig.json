@@ -24,7 +24,9 @@
       "info/*": ["./info/*"],
       "icons": ["./icons/index.ts"],
       "heroIcons": ["./icons/heroes/index.ts"],
-      "heroSkillsIcons": ["./icons/heroes/skills.ts"]
+      "heroSkillsIcons": ["./icons/heroes/skills.ts"],
+      "bossIcons": ["./icons/bosses/index.ts"],
+      "types": ["./src/app/api/types.ts"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

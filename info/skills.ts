@@ -1,4 +1,6 @@
-const heroSkills = [
+import { Skill } from "types";
+
+const heroSkills: Skill[] = [
     {
         "id": "A0FM",
         "name": "Emergency Rations",

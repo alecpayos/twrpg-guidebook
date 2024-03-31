@@ -1,51 +1,41 @@
-import Image from 'next/image';
-import heroIcons from 'heroIcons';
-import heroSkillsIcons from "heroSkillsIcons";
-import { getHeroSkills, getHeroes } from '../api/heroes';
-import { useRef, useState } from 'react';
-import { placeholder } from 'icons';
+import Image from "next/image";
+import heroIcons from "heroIcons";
+import { useState } from 'react';
+import { getHeroFullDetails, getHeroes } from "../api/heroes";
 
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
   Tabs,
-  Tab
+  Tab,
+  Card,
+  CardHeader,
+  Divider,
+  CardBody,
+  CardFooter
 } from "@nextui-org/react";
 
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  useDisclosure
-} from "@nextui-org/react";
+  Build,
+  BuildItem,
+  ItemColors,
+  SpecItemEffectsAndColor
+} from "types";
 
-export default function Heroes({ mode, rowHoverBg }: { mode: string, rowHoverBg: string }) {
+export default function Heroes() {
   const [category, setCategory] = useState('STR');
-  const { categorizedHeroes, formattedHeroSpecs } = getHeroes(category);
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
-  const selectedHero = useRef<HeroInfoAndSkills>({ hero: {}, skills: [] });
+  const { categorizedHeroes } = getHeroes(category);
+  const [selectedHero, setSelectedHero] = useState('Crusader');
+  const selectedHeroIcon = `${selectedHero.replace(' ', '')}Icon`;
+  const changeSelectedHero = (hero: any) => setSelectedHero(hero);
+  const changeItemCategory = (event: any) => setCategory(event);
 
-  const moddedModalStyles = mode == 'dark' 
-    ? "bg-zinc-800 text-white" 
-    : "bg-white text-zinc-900";
-
-  const setHeroDetails = (hero: any) => {
-    onOpen();
-    selectedHero.current.hero = hero;
-    selectedHero.current.skills = getHeroSkills(hero.heroClass);
-  };
-
-  const changeItemCategory = (event: any) => {
-    setCategory(event);
-  };
+  const {
+    hero,
+    builds,
+    specializedItems,
+  } = getHeroFullDetails(selectedHero);
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <section>
         <Tabs aria-label="Options" className="my-2" onSelectionChange={changeItemCategory}>
           <Tab key="STR" title="STR"></Tab>
@@ -55,180 +45,111 @@ export default function Heroes({ mode, rowHoverBg }: { mode: string, rowHoverBg:
       </section>
 
       <section>
-        <Table aria-label="Heroes table" classNames={{
-          tr: rowHoverBg
-        }}>
-          <TableHeader>
-            <TableColumn>ICON</TableColumn>
-            <TableColumn>NAME</TableColumn>
-            <TableColumn>ROLE</TableColumn>
-            <TableColumn>WEARABLE ITEM TYPES</TableColumn>
-            <TableColumn>SPECIALTIES</TableColumn>
-          </TableHeader>
-          
-          <TableBody emptyContent={"No rows to display."} items={categorizedHeroes}>
-            {hero =>
-              <TableRow key={hero.id} onClick={() => setHeroDetails(hero)}>
-                <TableCell>
-                  <Image className='min-w-16 max-w-16' src={heroIcons[hero.icon]} alt={`${hero.name} image`} />
-                </TableCell>
+        <section>
+          <Tabs aria-label="Options" items={categorizedHeroes} onSelectionChange={changeSelectedHero}>
+            {hero => <Tab key={hero.heroClass} title={hero.heroClass} />}
+          </Tabs>
+        </section>
+        
+        <Card className="mt-4 py-4 px-8">
+          <CardHeader className="flex flex-col items-start">
+            <section className="flex items-center">
+              <Image className="min-w-28 max-w-28" src={heroIcons[selectedHeroIcon]} alt={`${selectedHeroIcon} image`} />
+              <section className="flex flex-col ms-4">
+                <p className="text-lg" style={{ color: `#${hero?.color}` }}>{hero?.name}</p>
+                <p className="text-sm">{hero?.role.join(' / ')}</p>
+                <p className="text-sm">{hero?.wearable.join(' / ')}</p>
+              </section>
+            </section>
 
-                <TableCell>
-                  <p className="w-max" style={{ color: `#${hero.color}` }}>{hero.heroClass}</p>
-                </TableCell>
+            <section className="mt-4">
+              <SpecializedItems specializedItems={specializedItems} />
+            </section>
+          </CardHeader>
 
-                <TableCell>
-                  <p className='min-w-[200px] max-w-[200px]'>{hero.role}</p>
-                </TableCell>
+          <Divider/>
+          <CardBody className="grid grid-cols-3 gap-4">
+            <ProgressionBuildTypes builds={builds} heroColor={hero?.color || ''} />
+          </CardBody>
+          <Divider/>
 
-                <TableCell>
-                  <div className="flex flex-col">
-                    {hero.wearable.map((wearable, index) => <p key={index}>{wearable}</p>)}
-                  </div>
-                </TableCell>
-                
-                <TableCell>
-                  <div className="flex flex-col">
-                    {hero.spec.map((spec, index) => {
-                      const formattedSpecList = formattedHeroSpecs[hero.name] || [];
-                      const formattedSpec = formattedSpecList[index] && formattedSpecList[index].split(' - ')[1];
-
-                      return (
-                        <span key={index}>
-                          <p style={{ color: `#${hero.color}` }}>{spec}</p>
-                          <span className="flex items-center">
-                            {formattedSpec && <p className="text-lg relative top-[-2px] me-2">※</p>}
-                            <p>{formattedSpec}</p>
-                          </span>
-                        </span>
-                      );
-                    })}
-                  </div>
-                </TableCell>
-              </TableRow>
-            }
-          </TableBody>
-        </Table>
-
-        <Modal 
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-          motionProps={motionProps}
-          size="5xl"
-          placement="top"
-          classNames={{
-            base: "pt-4 pb-8"
-          }}
-        >
-          <ModalContent className={moddedModalStyles}>
-            {() => <HeroDetails selectedHero={selectedHero} />}
-          </ModalContent>
-        </Modal>
+          <CardFooter>
+            Test
+          </CardFooter>
+        </Card>
       </section>
-    </>
+    </div>
   )
 }
 
-const HeroDetails = ({ selectedHero }: { selectedHero: React.MutableRefObject<HeroInfoAndSkills> }) => {
-  const {current: { hero, skills }} = selectedHero;
-  const [selectedSkill, setSelectedSkill] = useState(skills[0]);
-  const handleSelectSkill = (index: number) => setSelectedSkill(skills[index]);
-  
-  const getTextColor = (index: number) => {
-    return index == 1 ? 'text-lime-400' 
-      : index > 1 ? 'text-purple-400'
-      : 'text-white';
-  }
-  
-  return (
-    <>
-      <ModalHeader className="flex items-center">
-        <section className="flex flex-col items-center me-12">
-          <Image className='min-w-16 max-w-16' src={heroIcons[hero.icon]} alt={`${hero.name} image`} />
-          <p>{hero.heroClass}</p>
-        </section>
+const SpecializedItems = ({ specializedItems }: { specializedItems: SpecItemEffectsAndColor[] | undefined }) => {
+  return specializedItems?.map((specItem, index) => {
+    const itemName = Object.keys(specItem)[0];
 
-        <section className="grid grid-cols-10 items-center">
-          {skills.map((skillObj, index) => {
-
+    return (
+      <span key={index}>
+        <p style={{ color: `#${specItem.color}`}}>{itemName}</p>
+        <span className="flex flex-col ms-4">
+          {Object.values(specItem[itemName]).map((specEffects, index) => {
             return (
-              <div key={skillObj.id} className="flex flex-col items-center gap-2">
-                <Image
-                  onClick={() => handleSelectSkill(index)}
-                  src={heroSkillsIcons[skillObj.icon] ?? placeholder}
-                  alt={`${skillObj.name} image`}
-                  className='
-                    min-w-12 max-w-12
-                    hover:border-4
-                    hover:border-yellow-400
-                    active:border-yellow-600
-                  '
-                />
-              </div>
+              <span key={index} className="flex">
+                <p className="text-lg relative top-[-2px] me-2">※</p>
+                <p>{specEffects.split(' - ')[1]}</p>
+              </span>
             );
           })}
-        </section>
-      </ModalHeader>
+        </span>
+      </span>
+    );
+  })
+}
 
-      <ModalBody>
-        <section className="flex flex-col">
-          <span className="flex items-center">
-            <Image className='min-w-16 max-w-16' src={heroSkillsIcons[selectedSkill.icon] ?? placeholder} alt={selectedSkill.name} />
-            <p className="ms-4 text-lg w-max font-semibold">{selectedSkill.name}</p>
-            <p className="ms-4 text-lg text-yellow-400">{selectedSkill.hotkey}</p>
-            <p className="ms-4 text-sm">Proc Co-efficient: {selectedSkill?.proc_rate || 'None'}</p>
-          </span>
+const ProgressionBuildTypes = ({ builds, heroColor }: { builds: Build[], heroColor: string }) => {
+  return builds.map((build) => {
+    return (
+      <Card key={build.order} className="bg-zinc-800 p-2">
+        <CardBody>
+          <section className="flex flex-col gap-4">
+            <div className="flex">
+              <p style={{ color: `#${heroColor}` }}>{build.version}</p>
+              <p className="ms-4">{build.type}</p>
+            </div>
 
-          <section className="flex flex-col mt-4">
-            {selectedSkill.passive && <span className="flex flex-col mt-4">
-              <p className="text-lg font-semibold">PASSIVE</p>
-              {selectedSkill.passive?.map((passive: string, index: number) => (
-                <p key={index} className={getTextColor(index)}>{passive}</p>
-              ))}
-            </span>}
-
-            {selectedSkill.active && <span className="flex flex-col mt-4">
-              <p className="text-lg font-semibold">ACTIVE</p>
-              {selectedSkill.active?.map((active: string, index: number) => (
-                <p key={index} className={getTextColor(index)}>{active}</p>
-              ))}
-            </span>}
-
-            {selectedSkill.toggle && <span className="flex flex-col mt-4">
-              <p className="text-lg font-semibold">TOGGLE</p>
-              {selectedSkill.toggle?.map((toggle: string, index: number) => (
-                <p key={index} className={getTextColor(index)}>{toggle}</p>
-              ))}
-            </span>}
+            {build.description && <div className="text-xs">
+              <p><i>Comments:</i></p>
+              {build.description?.map((desc, index) => {
+                return <p key={index}><i>{index + 1}. {desc}</i></p>;
+              })}
+            </div>}
+            
+            <div className="flex flex-col">
+              <p className="mb-3 text-xs"><i>Items: Weapon -&gt; Head -&gt; Ring -&gt; Armor -&gt; Wings</i></p>
+              <BuildItems items={build.items} colors={build.itemColors || []} />
+            </div>
           </section>
-        </section>
-      </ModalBody>
-    </>
-  );
+        </CardBody>
+      </Card>
+    );
+  });
 }
 
-type HeroInfoAndSkills = {
-  hero: any,
-  skills: any[]
+const BuildItems = ({ items, colors }: { items: BuildItem, colors: ItemColors[] }) => {
+  return Object.keys(items).map((item, index) => {
+    if (!items[item].length) {
+      return <p style={{ color: `#${colors[index][item]}` }} key={item}>{item}</p>;
+    } else {
+      return (
+        <span key={item}>
+          <p style={{ color: `#${colors[index][item]}` }}>{item}</p>
+          {items[item].map((altItem, index) => {
+            return (
+              <span key={index} className="flex items-center ms-4">
+                <p className="alt-color">[{altItem}]</p>
+              </span>
+            );
+          })}
+        </span>
+      );
+    }
+  });
 }
-
-const motionProps = {
-  variants: {
-    enter: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.3,
-        ease: "easeOut",
-      },
-    },
-    exit: {
-      y: -20,
-      opacity: 0,
-      transition: {
-        duration: 0.2,
-        ease: "easeIn",
-      },
-    },
-  }
-};
