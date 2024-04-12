@@ -7,35 +7,17 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - main
 jobs:
-  runs-on: ubuntu-latest
-
-  checkout:
-    name: CI Build
+  build_and_deploy:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
       - uses: actions/checkout@v4
-      
-  install:
-    - name: Clean Install Deps
-    - run: npm ci
-    
-  lint:
-    - name: Lint
-    - run: npm run lint
-
-  test:
-    - name: Test
-    - run: npm run test
-
-  build:
-      - name: Build
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test
       - run: npm run build
-      
-  deploy:
-    - name: Firebase Deploy
-    - uses: FirebaseExtended/action-hosting-deploy@v0
-      with:
-        repoToken: '${{ secrets.GITHUB_TOKEN }}'
-        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PERSONAL_PORTFOLIO_5284D }}'
-        channelId: live
-        projectId: personal-portfolio-5284d
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PERSONAL_PORTFOLIO_5284D }}'
+          channelId: live
+          projectId: personal-portfolio-5284d
