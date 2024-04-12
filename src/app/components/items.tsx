@@ -7,7 +7,8 @@ import {
   TableCell,
   Pagination,
   Tabs,
-  Tab
+  Tab,
+  useDisclosure
 } from "@nextui-org/react";
 
 import { 
@@ -34,16 +35,25 @@ import {
   SurvivalRows
 } from "components/items-table-rows";
 
-import { useState } from "react";
-import { getFilteredItems, itemTabs } from "api/items";
 import KeyLogger from "components/keylogger";
 import Searchbar from "components/searchbar";
+import { Key, useState } from "react";
+import { getFilteredItems } from "api/helpers";
+import { itemTabs } from "dictionaries";
+import { ShowItemDetailsModal } from "./item-details";
 
 export default function Items({ rowHoverBg }: { rowHoverBg: string }) {
-  const [page, setPage] = useState(1);
-  const [category, setCategory] = useState('Weapon');
-  const [searchValue, setSearchValue] = useState('');
-  const { items, totalPages } = getFilteredItems(page, category, searchValue);
+  const [ page, setPage ]                = useState(1);
+  const [ category, setCategory ]        = useState('Weapon');
+  const [ searchValue, setSearchValue ]  = useState('');
+  const { items, totalPages }            = getFilteredItems(page, category, searchValue);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [selectedItem, setSelectedItem]  = useState<Key>('');
+
+  const showItemDetails = (itemId: Key) => {
+    setSelectedItem(itemId);
+    onOpen();
+  }
 
   const changeItemCategory = (event: any) => {
     setPage(1);
@@ -67,9 +77,11 @@ export default function Items({ rowHoverBg }: { rowHoverBg: string }) {
       </section>
 
       <section>
-        <Table aria-label="Items table" classNames={{
-          tr: rowHoverBg
-        }}>
+        <Table 
+          aria-label="Items table"
+          classNames={{ tr: rowHoverBg }}
+          onRowAction={showItemDetails}
+        >
           <TableHeader>
             <TableColumn>NAME</TableColumn>
             <TableColumn><DamageColumnHeader items={items} /></TableColumn>
@@ -86,7 +98,7 @@ export default function Items({ rowHoverBg }: { rowHoverBg: string }) {
           <TableBody emptyContent={"No rows to display."} items={items}>
             {item => (
               <TableRow key={item.id}>
-                <TableCell>{item.name}</TableCell>
+                <TableCell><p style={{ color: `#${item.color}` }}>{item.name}</p></TableCell>
                 <TableCell><DamageRows item={item} /></TableCell>
                 <TableCell><ArmorRows item={item} /></TableCell>
                 <TableCell><ConstitutionRows item={item} /></TableCell>
@@ -101,6 +113,12 @@ export default function Items({ rowHoverBg }: { rowHoverBg: string }) {
           </TableBody>
         </Table>
       </section>
+
+      {selectedItem && <ShowItemDetailsModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        itemId={selectedItem}
+      />}
     </>
   )
 }

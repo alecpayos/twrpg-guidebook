@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image';
+
 import AlchemistD from './alchemist/AlchemistD.jpg';
 import AlchemistE from './alchemist/AlchemistE.jpg';
 import AlchemistE_E from './alchemist/AlchemistE_E.jpg';
@@ -388,7 +390,7 @@ import WitchT_Q from './witch/WitchT_Q.jpg';
 import WitchT_W from './witch/WitchT_W.jpg';
 import WitchW from './witch/WitchW.jpg';
 
-const heroSkillsIcons: any = {
+const heroSkillsIcons: { [key: string]: StaticImageData } = {
   AlchemistD,
   AlchemistE,
   AlchemistE_E,

@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The World RPG Guidebook
 
-## Getting Started
+This is a personal project for the game TWRPG. I made this to alleviate \
+my concerns regarding the usability of the suggested websites by the game mods.
 
-First, run the development server:
+<br>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The website currently has 2 features
+ - Item browsing and their respective stats
+ - Hero browsing and their respective builds
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Features to add
+ - Item alt recipes
+ - Hero skills and their descriptions.
+ - Bosses page
+ - Boss tactics
+ - Everything related to bosses
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<br>
 
-## Learn More
+## Items
 
-To learn more about Next.js, take a look at the following resources:
+This section categorizes all of the items into 13 categories
+ - Weapons
+ - Headwear
+ - Armor
+ - Accessory
+ - Wings
+ - Materials
+ - Miscellaneous
+ - Pickaxe
+ - Token
+ - Icons
+ - Food
+ - Coin
+ - Uncategorized (Mix)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The only possible props any item can have can be seen in the Item type. \
+[export type Item = { ... }](./src//app/api/types.ts#L133)
 
-## Deploy on Vercel
+<br>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Heroes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This section categorizes all of the Heroes into 3 categories
+  | STRENGTH    | AGILITY         | INTELLIGENCE     |
+  | :---------- | :-------------- | :--------------- |
+  | Crusader    | Sniper          | Soul Weaver      |
+  | Lancer      | Shooter         | Alchemist        |
+  | Merchant    | Sword Enchanter | Warlock          |
+  | Berserker   | Gunner          | Blood Weaver     |
+  | Knight      | Swordsman       | Fire Mage        |
+  | Dark Knight | Martial Artist  | Elementalist     |
+  | Paladin     | Reaper          | Lightning Mage   |
+  | Fighter     | Assassin        | Wind Mage        |
+  | Lightseeker | Thunderer       | Arcane Mage      |
+  | Blaster     | Bow Master      | Water Mage       |
+  |             | Phantom Blade   | Priest           |
+  |             | Hermit          | Witch            |
+  |             | Trickster       | Shrine Priestess |
+
+<br>
+
+The only possible props any hero can have can be seen in the Hero type. \
+[export type Hero = { ... }](./src//app/api/types.ts#L185)
+
+<br>
+
+## Disclaimer
+
+This is a personal project.

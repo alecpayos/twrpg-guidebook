@@ -29,6 +29,19 @@ body {
     color: #C19ADE;
   }
 
+  .item-level {
+    color: #FFD700;
+  }
+
+  .item-active-passive {
+    font-size: 16px;
+    color: #40E0D0;
+  }
+
+  .item-specialties {
+    color: #5A7DA0;
+  }
+
   #accordion-items a,
   #accordion-heroes a,
   #accordion-bosses a {

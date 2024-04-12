@@ -3,7 +3,7 @@
 import { Tabs, Tab } from "@nextui-org/react";
 import Items from "components/items";
 import React, { useState } from "react";
-import Heroes from "./components/heroes";
+import Heroes from "components/heroes";
 
 export default function Page() {
   const darkmode = 'dark text-gray-400 bg-background';
@@ -23,7 +23,7 @@ export default function Page() {
 
   return (
     <main className={`flex w-full min-h-screen p-8 flex-col justify-start ${darkmodeStyles}`}>
-      <Tabs disabledKeys={['light']} defaultSelectedKey='dark' onSelectionChange={key => changeMode(key)} className="absolute right-[35px]">
+      <Tabs defaultSelectedKey='dark' onSelectionChange={key => changeMode(key)} className="absolute right-[35px]">
         <Tab key="dark" title="Dark"></Tab>
         <Tab key="light" title="Light"></Tab>
       </Tabs>

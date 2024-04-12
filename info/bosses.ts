@@ -1,4 +1,6 @@
-[
+import { Boss } from "types";
+
+const bosses: Boss[] = [
     {
         "id": "n005",
         "name": "Spider",
@@ -4954,4 +4956,6 @@
             "I0GH"
         ]
     }
-]
+];
+
+export default bosses;

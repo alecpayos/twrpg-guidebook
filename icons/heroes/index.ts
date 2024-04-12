@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image';
+
 import AlchemistIcon from './alchemist/AlchemistIcon.jpg';
 import ArcaneMageIcon from './arcanemage/ArcaneMageIcon.jpg';
 import AssassinIcon from './assassin/AssassinIcon.jpg';
@@ -35,7 +37,7 @@ import WaterMageIcon from './watermage/WaterMageIcon.jpg';
 import WindMageIcon from './windmage/WindMageIcon.jpg';
 import WitchIcon from './witch/WitchIcon.jpg';
 
-const heroIcons: any = {
+const heroIcons: { [key: string]: StaticImageData } = {
   AlchemistIcon,
   ArcaneMageIcon,
   AssassinIcon,

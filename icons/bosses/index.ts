@@ -1,78 +1,92 @@
-import CorruptAngelIcon from 'Corrupt Angel Icon.jpg';
-import CountIcon from 'Count Icon.jpg';
-import DemonLordIcon from 'Demon Lord Icon.jpg';
-import EverfrostIcon from 'Everfrost Icon.jpg';
-import FrostspiderLordIcon from 'Frostspider Lord Icon.jpg';
-import FrostspiderQueenIcon from 'Frostspider Queen Icon.jpg';
-import GuardianAngelIcon from 'Guardian Angel Icon.jpg';
-import CastleAvalonGatekeeperIcon from "Guardian Spirit, Avalon's Gatekeeper Icon.jpg";
-import HydraIcon from 'Hydra Icon.jpg';
-import JackIcon from 'Jack Icon.jpg';
-import MadClownIcon from 'Mad Clown Icon.jpg';
-import MageLordIcon from 'Mage Lord Icon.jpg';
-import WingsofDeathIcon from 'Wings of Death Icon.jpg';
+import { StaticImageData } from 'next/image';
 
-import CorruptorIcon from 'Corruptor Icon.jpg';
-import FlameNightmareIcon from 'Flame Nightmare Icon.jpg';
-import SpiritBeastIcon from 'Spirit Beast Icon.jpg';
-import TurtleLordIcon from 'Turtle Lord Icon.jpg';
+import CorruptAngelIcon from './earlygame/Corrupt Angel Icon.jpg';
+import TheDevilsRightArmCorruptAngel from './earlygame/Corrupt Angel Icon.jpg';
+import CountIcon from './earlygame/Count Icon.jpg';
+import DemonLordIcon from './earlygame/Demon Lord Icon.jpg';
+import SoulOfEverfrost from './earlygame/Everfrost Icon.jpg';
+import EverfrostIcon from './earlygame/Everfrost Icon.jpg';
+import FrostspiderLordIcon from './earlygame/Frostspider Lord Icon.jpg';
+import FrostspiderQueenIcon from './earlygame/Frostspider Queen Icon.jpg';
+import GuardianAngelIcon from './earlygame/Guardian Angel Icon.jpg';
+import The3rdArmysGuardianAngel from './earlygame/Guardian Angel Icon.jpg';
+import CastleAvalonGatekeeperIcon from "./earlygame/Guardian Spirit, Avalon's Gatekeeper Icon.jpg";
+import HydraIcon from './earlygame/Hydra Icon.jpg';
+import JackIcon from './earlygame/Jack Icon.jpg';
+import MadClownIcon from './earlygame/Mad Clown Icon.jpg';
+import MageLordIcon from './earlygame/Mage Lord Icon.jpg';
+import WingsOfDeathIcon from './earlygame/Wings of Death Icon.jpg';
 
-import AncientEntIcon from 'Ancient Ent Icon.jpg';
-import ArchangelIcon from 'Archangel Icon.jpg';
-import BoneDragonIcon from 'Bone Dragon Icon.jpg';
-import ShadowDragonIcon from 'Shadow Dragon Icon.jpg';
-import SkeletalKingIcon from 'Skeletal King Icon.jpg';
-import ZombieLordIcon from 'Zombie Lord Icon.jpg';
+import CorruptorIcon from './midgame/Corruptor Icon.jpg';
+import CorruptorRectus from './midgame/Corruptor Icon.jpg';
+import FlameNightmareIcon from './midgame/Flame Nightmare Icon.jpg';
+import SpiritBeastIcon from './midgame/Spirit Beast Icon.jpg';
+import TurtleLordIcon from './midgame/Turtle Lord Icon.jpg';
 
-import DeathFiendIcon from 'Death Fiend Icon.jpg';
-import IfritIcon from 'Ifrit Icon.jpg';
-import ValtoraIcon from 'Valtora Icon.jpg';
+import AncientEntIcon from './highgame/Ancient Ent Icon.jpg';
+import ArchangelSamaelIcon from './highgame/Archangel Icon.jpg';
+import BoneDragonIcon from './highgame/Bone Dragon Icon.jpg';
+import ShadowDragonIrbertIcon from './highgame/Shadow Dragon Icon.jpg';
+import SkeletalKingDesperiaIcon from './highgame/Skeletal King Icon.jpg';
+import ShadowDragonIcon from './highgame/Shadow Dragon Icon.jpg';
+import SkeletalKingIcon from './highgame/Skeletal King Icon.jpg';
+import ZombieLordIcon from './highgame/Zombie Lord Icon.jpg';
 
-import AgarethIcon from 'Agareth Icon.jpg';
-import ArcaneConstructIcon from 'Arcane Construct Icon.jpg';
-import DukeLazarusIcon from 'Duke Lazarus Icon.jpg';
-import GaiaIcon from 'Gaia Icon.jpg';
-import NereidIcon from 'Nereid Icon.jpg';
+import DeathFiendIcon from './lategame/Death Fiend Icon.jpg';
+import IfritIcon from './lategame/Ifrit Icon.jpg';
+import ValtoraIcon from './lategame/Valtora Icon.jpg';
 
-const earlyGame = {
+import AgarethIcon from './endgame/Agareth Icon.jpg';
+import ArcaneConstructIcon from './endgame/Arcane Construct Icon.jpg';
+import DukeLazarusIcon from './endgame/Duke Lazarus Icon.jpg';
+import GaiaIcon from './endgame/Gaia Icon.jpg';
+import NereidIcon from './endgame/Nereid Icon.jpg';
+
+const earlyGame: { [key: string]: StaticImageData } = {
   CorruptAngelIcon,
+  TheDevilsRightArmCorruptAngel,
   CountIcon,
   DemonLordIcon,
   EverfrostIcon,
+  SoulOfEverfrost,
   FrostspiderLordIcon,
   FrostspiderQueenIcon,
   GuardianAngelIcon,
+  The3rdArmysGuardianAngel,
   CastleAvalonGatekeeperIcon,
   HydraIcon,
   JackIcon,
   MadClownIcon,
   MageLordIcon,
-  WingsofDeathIcon,
+  WingsOfDeathIcon,
 };
 
-const midGame = {
+const midGame: { [key: string]: StaticImageData } = {
   CorruptorIcon,
+  CorruptorRectus,
   FlameNightmareIcon,
   SpiritBeastIcon,
   TurtleLordIcon,
 };
 
-const highGame = {
+const highGame: { [key: string]: StaticImageData } = {
   AncientEntIcon,
-  ArchangelIcon,
+  ArchangelSamaelIcon,
   BoneDragonIcon,
+  ShadowDragonIrbertIcon,
+  SkeletalKingDesperiaIcon,
   ShadowDragonIcon,
   SkeletalKingIcon,
   ZombieLordIcon,
 };
 
-const lateGame = {
+const lateGame: { [key: string]: StaticImageData } = {
   DeathFiendIcon,
   IfritIcon,
   ValtoraIcon,
 };
 
-const endGame = {
+const endGame: { [key: string]: StaticImageData } = {
   AgarethIcon,
   ArcaneConstructIcon,
   DukeLazarusIcon,

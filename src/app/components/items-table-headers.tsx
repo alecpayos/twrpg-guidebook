@@ -1,12 +1,16 @@
-import { getItemMatches } from "../api/items";
+import { getItemAttrMatches } from "api/helpers";
 
 const hide = (index: number, items: any[]) => {
   const headerNames = [
     'damage','armor','constitution','statsgain','affinities',
     'dexterities','targeted','defense','survival'
   ];
+  
+  return !items.reduce((matches, item: any) => {
+    matches += getItemAttrMatches(headerNames[index], item);
 
-  return !getItemMatches(headerNames[index], items) ? 'hidden' : '';
+    return matches;
+  }, 0) ? 'hidden' : '';
 }
 
 export const DamageColumnHeader = ({ items }: { items: any[] }) => {

@@ -1,7 +1,7 @@
-import * as bossesData from 'info/bosses.json'
+import bosses from "info/bosses";
 
 export const getCategorizedBosses = () => {
-  const mappedBosses = Object.values(bossesData);
+  const mappedBosses = Object.values(bosses);
 
   const endgameBosses = mappedBosses.filter(({ type, category }) => {
     return type == 'Boss' && category == 'Endgame';

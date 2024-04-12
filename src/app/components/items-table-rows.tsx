@@ -1,6 +1,7 @@
-import { getItemAttrMatches } from "api/items";
+import { getItemAttrMatches } from "api/helpers";
+import { Item } from "../api/types";
 
-export const DamageRows = ({ item }: { item: any }) => {
+export const DamageRows = ({ item }: { item: Item }) => {
   return (
     <div className={`flex justify-center`}>
       <p className="text-yellow-500">{item.stats?.damage}</p>
@@ -8,7 +9,7 @@ export const DamageRows = ({ item }: { item: any }) => {
   );
 }
 
-export const ArmorRows = ({ item }: { item: any }) => {
+export const ArmorRows = ({ item }: { item: Item }) => {
   const armor = Math.round((item.stats?.armor || 0) * 100);
   const isEmpty = !getItemAttrMatches('armor', item) ? 'hidden' : '';
 
@@ -19,7 +20,7 @@ export const ArmorRows = ({ item }: { item: any }) => {
   )
 }
 
-export const StatsGainRows = ({ item }: { item: any }) => {
+export const StatsGainRows = ({ item }: { item: Item }) => {
   const isEmpty = !getItemAttrMatches('statsgain', item) ? 'hidden' : '';
 
   return (
@@ -36,7 +37,7 @@ export const StatsGainRows = ({ item }: { item: any }) => {
   );
 }
 
-export const ConstitutionRows = ({ item }: { item: any }) => {
+export const ConstitutionRows = ({ item }: { item: Item }) => {
   const isEmpty = !getItemAttrMatches('constitution', item) ? 'hidden' : '';
 
   return (
@@ -50,11 +51,13 @@ export const ConstitutionRows = ({ item }: { item: any }) => {
   );
 }
 
-export const AffinityRows = ({ item }: { item: any }) => {
+export const AffinityRows = ({ item }: { item: Item }) => {
   const dark = Math.round((item.stats?.affinitydarkpercent || 0) * 100);
   const flame = Math.round((item.stats?.affinityflamepercent || 0) * 100);
   const earth = Math.round((item.stats?.affinityearthpercent || 0) * 100);
-  let light = Math.round(item.stats?.affinitylightpercent * 100);
+  const hasLightVal = item.stats?.affinitylightpercent ? item.stats?.affinitylightpercent : 0;
+
+  let light = Math.round(hasLightVal * 100);
   let ice, water;
   ice = water = light = 0;
 
@@ -85,7 +88,7 @@ export const AffinityRows = ({ item }: { item: any }) => {
   );
 }
 
-export const DexterityRows = ({ item }: { item: any }) => {
+export const DexterityRows = ({ item }: { item: Item }) => {
   const as = Math.round((item.stats?.attackspeedpercent || 0) * 100);
   const ms = Math.round((item.stats?.movespeed || 0) * 100);
   const crit = Math.round((item.stats?.critchancepercent || 0) * 100);
@@ -105,7 +108,7 @@ export const DexterityRows = ({ item }: { item: any }) => {
   );
 }
 
-export const BossTargetedRows = ({ item }: { item: any }) => {
+export const BossTargetedRows = ({ item }: { item: Item }) => {
   const periodic = Math.round((item.stats?.periodicdamagepercent || 0) * 100);
   const skilldmg = Math.round((item.stats?.skilldamagepercent || 0) * 100);
   const procdmg = Math.round((item.stats?.procdamagepercent || 0) * 100);
@@ -129,7 +132,7 @@ export const BossTargetedRows = ({ item }: { item: any }) => {
   );
 };
 
-export const DefenseRows = ({ item }: { item: any }) => {
+export const DefenseRows = ({ item }: { item: Item }) => {
   const dmgreduc = Math.round((item.stats?.drpercent || 0) * 100);
   const dmgtkn = Math.round((item.stats?.dtpercent || 0) * 100);
   const magicdef = Math.round((item.stats?.mdpercent || 0) * 100);
@@ -146,7 +149,7 @@ export const DefenseRows = ({ item }: { item: any }) => {
   );
 };
 
-export const SurvivalRows = ({ item }: { item: any }) => {
+export const SurvivalRows = ({ item }: { item: Item }) => {
   const dodge = Math.round((item.stats?.dodgechancepercent || 0) * 100);
   const healing = Math.round((item.stats?.healingpercent || 0) * 100);
   const healreceived = Math.round((item.stats?.healreceivedpercent || 0) * 100);

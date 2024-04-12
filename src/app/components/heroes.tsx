@@ -1,16 +1,10 @@
-import Image from "next/image";
-import heroIcons from "heroIcons";
-import { useState } from 'react';
-import { getHeroFullDetails, getHeroes } from "../api/heroes";
-
 import {
   Tabs,
   Tab,
   Card,
   CardHeader,
   Divider,
-  CardBody,
-  CardFooter
+  CardBody
 } from "@nextui-org/react";
 
 import {
@@ -20,19 +14,24 @@ import {
   SpecItemEffectsAndColor
 } from "types";
 
+import Image from "next/image";
+import heroes from "info/heroes";
+import { useState } from 'react';
+import { HeroFullDetails } from "classes";
+
 export default function Heroes() {
   const [category, setCategory] = useState('STR');
-  const { categorizedHeroes } = getHeroes(category);
+  const categorizedHeroes = heroes.filter(hero => hero.mainstat == category);
   const [selectedHero, setSelectedHero] = useState('Crusader');
-  const selectedHeroIcon = `${selectedHero.replace(' ', '')}Icon`;
   const changeSelectedHero = (hero: any) => setSelectedHero(hero);
   const changeItemCategory = (event: any) => setCategory(event);
 
   const {
     hero,
+    icon,
     builds,
     specializedItems,
-  } = getHeroFullDetails(selectedHero);
+  } = new HeroFullDetails(selectedHero);
 
   return (
     <div className="flex flex-col gap-4">
@@ -54,7 +53,7 @@ export default function Heroes() {
         <Card className="mt-4 py-4 px-8">
           <CardHeader className="flex flex-col items-start">
             <section className="flex items-center">
-              <Image className="min-w-28 max-w-28" src={heroIcons[selectedHeroIcon]} alt={`${selectedHeroIcon} image`} />
+              <Image className="min-w-28 max-w-28" width={28} height={28} src={icon} alt={hero.name} />
               <section className="flex flex-col ms-4">
                 <p className="text-lg" style={{ color: `#${hero?.color}` }}>{hero?.name}</p>
                 <p className="text-sm">{hero?.role.join(' / ')}</p>
@@ -68,21 +67,18 @@ export default function Heroes() {
           </CardHeader>
 
           <Divider/>
+          
           <CardBody className="grid grid-cols-3 gap-4">
-            <ProgressionBuildTypes builds={builds} heroColor={hero?.color || ''} />
+            <ProgressionBuildTypes builds={builds} heroColor={hero.color} />
           </CardBody>
-          <Divider/>
 
-          <CardFooter>
-            Test
-          </CardFooter>
         </Card>
       </section>
     </div>
   )
 }
 
-const SpecializedItems = ({ specializedItems }: { specializedItems: SpecItemEffectsAndColor[] | undefined }) => {
+export const SpecializedItems = ({ specializedItems }: { specializedItems: SpecItemEffectsAndColor[] }) => {
   return specializedItems?.map((specItem, index) => {
     const itemName = Object.keys(specItem)[0];
 
@@ -104,7 +100,7 @@ const SpecializedItems = ({ specializedItems }: { specializedItems: SpecItemEffe
   })
 }
 
-const ProgressionBuildTypes = ({ builds, heroColor }: { builds: Build[], heroColor: string }) => {
+export const ProgressionBuildTypes = ({ builds, heroColor = '' }: { builds: Build[], heroColor: string }) => {
   return builds.map((build) => {
     return (
       <Card key={build.order} className="bg-zinc-800 p-2">
@@ -124,7 +120,7 @@ const ProgressionBuildTypes = ({ builds, heroColor }: { builds: Build[], heroCol
             
             <div className="flex flex-col">
               <p className="mb-3 text-xs"><i>Items: Weapon -&gt; Head -&gt; Ring -&gt; Armor -&gt; Wings</i></p>
-              <BuildItems items={build.items} colors={build.itemColors || []} />
+              <BuildItems items={build.items} colors={build.itemColors} />
             </div>
           </section>
         </CardBody>
@@ -133,7 +129,7 @@ const ProgressionBuildTypes = ({ builds, heroColor }: { builds: Build[], heroCol
   });
 }
 
-const BuildItems = ({ items, colors }: { items: BuildItem, colors: ItemColors[] }) => {
+export const BuildItems = ({ items, colors = [] }: { items: BuildItem, colors?: ItemColors[] }) => {
   return Object.keys(items).map((item, index) => {
     if (!items[item].length) {
       return <p style={{ color: `#${colors[index][item]}` }} key={item}>{item}</p>;

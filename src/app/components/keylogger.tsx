@@ -34,7 +34,7 @@ const KeyLogger = ({
         keysPressed.current = keysPressed.current.slice(0, keysPressed.current.length - 1)
       }
 
-      onKeyPress(keysPressed.current)
+      onKeyPress(keysPressed.current);
     }
 
     document.addEventListener("keydown", handleKeyDown)
